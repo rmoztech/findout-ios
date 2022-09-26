@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "95169262425",
+    "project_id": "findout-91e95",
+    "storage_bucket": "findout-91e95.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95169262425:android:fa3ff60cf93a58da6e5248",
+        "android_client_info": {
+          "package_name": "vision.findout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "95169262425-e20f5q2ke7ojh3abkorrnd8q8nbnep0o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "vision.findout",
+            "certificate_hash": "8a272be655cb0ba460f26c6532c2b351b1ff3d59"
+          }
+        },
+        {
+          "client_id": "95169262425-8dkk064agqk01uhcd51vv3d7f9a4ka7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG0lkzBV8GXJGlMxqWltHlaw0yIqhyFuk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "95169262425-8dkk064agqk01uhcd51vv3d7f9a4ka7l.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "95169262425-rdhsg9m8or9mdnk10flmftgsoj9q9ldg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "vision.findout"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
