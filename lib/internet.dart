@@ -4,9 +4,7 @@ import 'package:findout/ModelAppTheme/Colors.dart';
 import 'package:findout/ModelAppTheme/GF.dart';
 import 'package:findout/PageView/StartApp.dart';
 import 'package:flutter/material.dart';
-// import 'package:adobe_xd/pinned.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
 
@@ -24,7 +22,6 @@ class _internetState extends State<internet> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     subscription =
         _simpleConnectionChecker.onConnectionChange.listen((connected) {

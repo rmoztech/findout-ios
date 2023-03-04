@@ -1,22 +1,10 @@
-import 'dart:async';
-import 'dart:math';
-
-import 'package:adobe_xd/pinned.dart';
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:findout/ADS/Ads.dart';
-import 'package:findout/Events/image_story1.dart';
+import 'package:findout/Events/map.dart';
 import 'package:findout/Model/searchclass.dart';
 import 'package:findout/ModelAppTheme/AppBar.dart';
 import 'package:findout/ModelAppTheme/Colors.dart';
-import 'package:findout/ModelAppTheme/GF.dart';
-import 'package:findout/NavigationBottomBar.dart';
-import 'package:findout/PageView/PageView1.dart';
+
 import 'package:findout/api/webpage.dart';
-import 'package:findout/internet.dart';
 import 'package:findout/provider/findout_provider.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,13 +12,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_viewer/image_viewer.dart';
-import 'package:loading_transition_button/loading_transition_button.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class EventDetails extends StatefulWidget {
@@ -48,8 +32,9 @@ class _EventDetailsState extends State<EventDetails> {
     super.initState();
     var findprov = Provider.of<FindoutProvider>(context, listen: false);
     findprov.get_adv(findprov.token, context);
-    if(findprov.token==""){}else{
-      findprov. add_counter(findprov.token,widget.events_list.id!);
+    if (findprov.token == "") {
+    } else {
+      findprov.add_counter(findprov.token, widget.events_list.id!);
     }
   }
 
@@ -143,33 +128,19 @@ class _EventDetailsState extends State<EventDetails> {
                         //  Map furniture = furnitures[index];
 
                         return Padding(
-                          padding: EdgeInsets.all( 8),
+                          padding: EdgeInsets.all(8),
                           child: GestureDetector(
                               onTap: () {
                                 ImageViewer.showImageSlider(
                                   images: widget.events_list.imagestring!,
-                                  // [
-                                  //   'https://cdn.eso.org/images/thumb300y/eso1907a.jpg',
-                                  //   'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg',
-                                  //   'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-                                  // ],
                                   startingPosition: index,
                                 );
-                                // Navigator.of(context).push(
-                                //   MaterialPageRoute(
-                                //     builder: (BuildContext context){
-                                //       return ImageStory1(  widget.events_list);
-                                //     },
-                                //   ),
-                                // );
                               },
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(8.0),
                                 child: Image.network(
                                   widget.events_list.imagestring![index],
                                   fit: BoxFit.fill,
-                                  // height: 300.0,
-                                  // width: width.w,
                                 ),
                               )),
                         );
@@ -182,22 +153,6 @@ class _EventDetailsState extends State<EventDetails> {
                 SizedBox(
                   width: 10.w,
                 ),
-                // Text(
-                //   widget.events_list.avgRates.toString(),
-                //   style: TextStyle(
-                //     fontFamily: 'Cairo',
-                //     fontSize: 12.sp,
-                //     color: AppColors.blackColor,
-                //   ),
-                // ),
-                // SizedBox(
-                //   width: 5.w,
-                // ),
-                // SvgPicture.string(
-                //   '<svg viewBox="-18.9 1.0 10.9 10.4" ><path transform="translate(-18.89, -0.05)" d="M 4.911372184753418 1.373127222061157 L 3.685233116149902 3.857607126235962 C 3.59996771812439 4.030405044555664 3.435107946395874 4.150138854980469 3.24439525604248 4.177804470062256 L 0.5025340914726257 4.576237678527832 C 0.02223941311240196 4.646082401275635 -0.1693817526102066 5.236133575439453 0.1780275851488113 5.574700355529785 L 2.162027835845947 7.508584499359131 C 2.299903631210327 7.643058300018311 2.362945318222046 7.836945056915283 2.330290794372559 8.026751518249512 L 1.862012982368469 10.75750255584717 C 1.77992308139801 11.23576068878174 2.281988859176636 11.60040283203125 2.711489200592041 11.37476921081543 L 5.163766384124756 10.08558559417725 C 5.334296226501465 9.996012687683105 5.538162231445312 9.996012687683105 5.708691120147705 10.08558559417725 L 8.160970687866211 11.37476921081543 C 8.590470314025879 11.60062980651855 9.092536926269531 11.23576068878174 9.010446548461914 10.75750255584717 L 8.542169570922852 8.026751518249512 C 8.509513854980469 7.836945056915283 8.572556495666504 7.643058300018311 8.710432052612305 7.508584499359131 L 10.69443130493164 5.574700355529785 C 11.04184246063232 5.23590612411499 10.85022163391113 4.645854473114014 10.36992645263672 4.576237678527832 L 7.628064155578613 4.177804470062256 C 7.437350749969482 4.150138854980469 7.272490501403809 4.030405044555664 7.187225341796875 3.857607126235962 L 5.961085796356201 1.373127222061157 C 5.746561527252197 0.9379575848579407 5.126121520996094 0.9379575848579407 4.911372184753418 1.373127222061157 Z" fill="#ed8a19" stroke="none" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                //   allowDrawingOutsideViewBox: true,
-                //   fit: BoxFit.fill,
-                // ),
                 SizedBox(
                   width: 8.w,
                 ),
@@ -262,14 +217,6 @@ class _EventDetailsState extends State<EventDetails> {
                                       ),
                                     ),
                                   ),
-                                  // Text(
-                                  //   'Number'.tr(),
-                                  //   style: TextStyle(
-                                  //     fontFamily: 'Cairo',
-                                  //     fontSize: 14.sp,
-                                  //     color: AppColors.blackColor,
-                                  //   ),
-                                  // )
                                 ],
                               ),
                         SizedBox(
@@ -281,35 +228,18 @@ class _EventDetailsState extends State<EventDetails> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      showDialogMap();
-                                      // showDialog(
-                                      // context: (context),
-                                      // builder: (context) {
-                                      // return StatefulBuilder(builder: (context, newSetState) {
-                                      // return AlertDialog(
-                                      // title: Text('Google Map'),
-                                      // content: Container(
-                                      //  // height: 300,width: 4000,
-                                      //   child: GoogleMap(
-                                      //   initialCameraPosition: CameraPosition(
-                                      //   target: LatLng(double.parse(widget.events_list.location!.lat!),double.parse(widget.events_list.location!.long!)), zoom: 14),
-                                      //   markers:[ Marker(markerId: MarkerId('${widget.events_list.id}'),                infoWindow: InfoWindow(
-                                      //     title:widget.events_list.title.toString(),
-                                      //   ), position: LatLng(double.parse(widget.events_list.location!.lat!),double.parse(widget.events_list.location!.long!)))].toSet(),
-                                      //
-                                      //   ),
-                                      // ),
-                                      // );
-                                      // });
-                                      // });
-
-                                      // addMarker(latLng, newSetState)
-                                      // {
-                                      // newSetState(() {
-                                      // markers.clear();
-                                      // markers.add(Marker(markerId: MarkerId('New'), position: latLng));
-                                      // });
-                                      // }
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => MapDetails(
+                                            lat: double.parse(widget
+                                                .events_list.location!.lat!),
+                                            long: double.parse(widget
+                                                .events_list.location!.long!), id: '${widget.events_list.id}', title: '${widget.events_list.title}',
+                                          ),
+                                        ),
+                                      );
+                                      // showDialogMap();
                                     },
                                     child: Container(
                                       width: 50,
@@ -328,14 +258,6 @@ class _EventDetailsState extends State<EventDetails> {
                                       ),
                                     ),
                                   ),
-                                  // Text(
-                                  //   'locationPlace'.tr(),
-                                  //   style: TextStyle(
-                                  //     fontFamily: 'Cairo',
-                                  //     fontSize: 14.sp,
-                                  //     color: AppColors.blackColor,
-                                  //   ),
-                                  // )
                                 ],
                               ),
                       ],
@@ -482,21 +404,11 @@ class _EventDetailsState extends State<EventDetails> {
                           ),
                     widget.events_list.about_place == null
                         ? Container()
-                        : Text(
-                            'whatThisPlace'.tr(),
-                            style: TextStyle(
-                              fontFamily: 'Cairo',
-                              fontSize: 16.sp,
-                              color: const Color(0xff000000),
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                    widget.events_list.about_place == null
-                        ? Container()
                         : Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: HtmlWidget('${widget.events_list.about_place}'),
-                        ),
+                            padding: const EdgeInsets.all(8.0),
+                            child:
+                                HtmlWidget('${widget.events_list.about_place}'),
+                          ),
                   ],
                 ),
               ),
@@ -528,8 +440,7 @@ class _EventDetailsState extends State<EventDetails> {
       context: context,
       builder: (context) => GoogleMap(
         initialCameraPosition: CameraPosition(
-            target: LatLng(
-                double.parse(widget.events_list.location!.lat!),
+            target: LatLng(double.parse(widget.events_list.location!.lat!),
                 double.parse(widget.events_list.location!.long!)),
             zoom: 14),
         markers: [
@@ -538,14 +449,10 @@ class _EventDetailsState extends State<EventDetails> {
               infoWindow: InfoWindow(
                 title: widget.events_list.title.toString(),
               ),
-              position: LatLng(
-                  double.parse(widget.events_list.location!.lat!),
+              position: LatLng(double.parse(widget.events_list.location!.lat!),
                   double.parse(widget.events_list.location!.long!)))
         ].toSet(),
       ),
     );
-
-
-
   }
 }

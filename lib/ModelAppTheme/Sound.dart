@@ -8,7 +8,6 @@ class PlaySound{
 
   void play(){
     if (kDebugMode) {
-      print("########ffffff");
     }
     if (Platform.isIOS) {
       audioCache.fixedPlayer?.notificationService.startHeadlessService();

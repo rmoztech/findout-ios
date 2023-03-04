@@ -1,38 +1,19 @@
-import 'dart:async';
-import 'dart:math';
 
-import 'package:adobe_xd/pinned.dart';
-import 'package:animation_list/animation_list.dart';
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:findout/ADS/AdDetailsToDetails.dart';
+
 import 'package:findout/Events/EventDetails.dart';
 import 'package:findout/Events/EventsNow.dart';
 import 'package:findout/ModelAppTheme/AppBar.dart';
 import 'package:findout/ModelAppTheme/Colors.dart';
-import 'package:findout/ModelAppTheme/GF.dart';
-import 'package:findout/NavigationBottomBar.dart';
-import 'package:findout/PageView/PageView1.dart';
-import 'package:findout/internet.dart';
+
 import 'package:findout/provider/findout_provider.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:image_viewer/image_viewer.dart';
-import 'package:like_button/like_button.dart';
-import 'package:loading_transition_button/loading_transition_button.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:rating_dialog/rating_dialog.dart';
-import 'package:simple_connection_checker/simple_connection_checker.dart';
+
 
 import '../../Model/image_data.dart';
 
@@ -44,7 +25,6 @@ class Events extends StatefulWidget {
 class _EventsState extends State<Events> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -228,12 +208,7 @@ class PinterestGridEvents extends StatelessWidget {
         itemCount: imageList.length,
         itemBuilder: (context, index) => InkWell(
           onTap: () {
-            // pushNewScreen(
-            //   context,
-            //   screen:  EventDetails(),
-            //   withNavBar: false, // OPTIONAL VALUE. True by default.
-            //   pageTransitionAnimation: PageTransitionAnimation.cupertino,
-            // );
+          
           },
           child: ImageCard(
             imageData: imageList[index],
@@ -255,7 +230,6 @@ class ImageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         ClipRRect(

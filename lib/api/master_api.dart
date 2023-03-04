@@ -17,10 +17,11 @@ eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiOWIxODIyOGNmZDNjMTQ
     'accept' : 'application/json',
     'Content-Type' : 'application/json',
   };
+  // static String URL_1 = 'https://findout.vision.com.sa/test/public/';
 
-  static String URL_1 = 'https://findout.vision.com.sa/test/public/';
+  static String URL_1 = 'https://findoutsa.com/';
   static String URL_IMAGE_DEFAULT = '${URL_1}default.png';
-  static String BASE_URL =URL_1+ 'api/';
+  static String BASE_URL =URL_1+ 'api/'; 
   static String API_URL_USER_REGESTER =  BASE_URL + 'register';
   static String API_URL_GET_HOME =  BASE_URL + 'home';
   static String API_URL_SEARCH =  BASE_URL + 'All-Service';

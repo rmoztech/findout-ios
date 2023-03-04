@@ -1,35 +1,19 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:adobe_xd/pinned.dart';
 import 'package:animation_list/animation_list.dart';
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:findout/ADS/AdDetails.dart';
 import 'package:findout/Model/searchclass.dart';
 import 'package:findout/ModelAppTheme/AppBar.dart';
 import 'package:findout/ModelAppTheme/Colors.dart';
-import 'package:findout/ModelAppTheme/GF.dart';
-import 'package:findout/ModelAppTheme/Sound.dart';
-import 'package:findout/NavigationBottomBar.dart';
-import 'package:findout/PageView/PageView1.dart';
-import 'package:findout/internet.dart';
 import 'package:findout/provider/findout_provider.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:like_button/like_button.dart';
-import 'package:loading_transition_button/loading_transition_button.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:simple_connection_checker/simple_connection_checker.dart';
 
 class Favorits extends StatefulWidget {
   @override
@@ -41,7 +25,6 @@ class _FavoritsState extends State<Favorits> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     startListView = false;
@@ -56,7 +39,6 @@ class _FavoritsState extends State<Favorits> {
       RefreshController(initialRefresh: false);
 
   void _onRefresh() async {
-    // monitor network fetch
     await Future.delayed(Duration(milliseconds: 1000));
     if (mounted)
       setState(() {
@@ -68,7 +50,7 @@ class _FavoritsState extends State<Favorits> {
   }
 
   void _onLoading() async {
-    // monitor network fetch
+
     await Future.delayed(Duration(milliseconds: 1000));
     if (mounted)
       setState(() {
@@ -142,9 +124,8 @@ class _FavoritsState extends State<Favorits> {
                       builder: (context, findprov, child) => AnimationList(
                         duration: 2000,
                         reBounceDepth: 30,
-                        // children: data.map((item) {
-                        //   return _buildTile(item['title'], item['backgroundColor']);
-                        // }).toList()),
+                      
+                      
                         children: [
                           for (var i = 0; i < findprov.fav_list.length; i++)
                             InkWell(
@@ -153,35 +134,15 @@ class _FavoritsState extends State<Favorits> {
                                   context,
                                   screen: AdDetails(findprov.fav_list[i]),
                                   withNavBar: false,
-                                  // OPTIONAL VALUE. True by default.
+
                                   pageTransitionAnimation:
                                       PageTransitionAnimation.cupertino,
                                 );
                               },
                               child: ItemsADS(findprov.fav_list[i]),
                             ),
-                          // InkWell(
-                          //   onTap: () {
-                          //         pushNewScreen(
-                          //           context,
-                          //           screen:  AdDetails(),
-                          //           withNavBar: false, // OPTIONAL VALUE. True by default.
-                          //           pageTransitionAnimation: PageTransitionAnimation.cupertino,
-                          //         );
-                          //   },
-                          //   child: ItemsADS(),
-                          // ),
-                          // ItemsADS(),
-                          // ItemsADS(),
-                          // ItemsADS(),
-                          // ItemsADS(),
-                          // ItemsADS(),
-                          // ItemsADS(),
-                          // ItemsADS(),
-                          // ItemsADS(),
-                          // ItemsADS(),
-                          // ItemsADS(),
-                          // ItemsADS(),
+                         
+                         
                         ],
                       ),
                     ),
@@ -206,7 +167,7 @@ class _FavoritsState extends State<Favorits> {
         ),
         child: Center(
           child: Row(
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
             children: [
               list.images!.length == 0
                   ? Container(
@@ -247,7 +208,8 @@ class _FavoritsState extends State<Favorits> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          list.title.toString(), //   'منظر طبيعي',
+                          list.title.toString(),    
+                          
                           style: TextStyle(
                             fontFamily: 'Cairo',
                             fontSize: 12.sp,
@@ -255,22 +217,13 @@ class _FavoritsState extends State<Favorits> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        // SizedBox(
-                        //   width: width / 2.5.w,
-                        // ),
-                        // Adobe XD layer: 'XMLID_2_' (shape)
+                      
+                      
                         InkWell(
                           onTap: () {
                             showDialogDelFav(list.id!);
-                            // GF().loading();
-                            // Future.delayed(const Duration(seconds: 3), () {
-                            //   setState(() {
-                            //     GF().dismissLoading();
-                            //     GF().ToastMessage(context, "deleted".tr(), const Icon(Icons.done));
-                            //     PlaySound().play();
-                            //
-                            //   });
-                            // });
+                           
+                           
                           },
                           child: Container(
                              height: 20,width: 20,
@@ -292,7 +245,7 @@ class _FavoritsState extends State<Favorits> {
                         width: 160.w,
                         child: Text(
                           list.details == null ? "" : list.details.toString(),
-                          //  'لوريم ايبسوم دولار سيت أميت ,كونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور',
+
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -308,7 +261,8 @@ class _FavoritsState extends State<Favorits> {
                         child: Row(
                           children: [
                             Text(
-                              list.counter.toString(), //    '100',
+                              list.counter.toString(),
+                              
                               style: TextStyle(
                                 fontFamily: 'Cairo',
                                 fontSize: 8.sp,
@@ -335,7 +289,8 @@ class _FavoritsState extends State<Favorits> {
                               width: 10.w,
                             ),
                             Text(
-                                double.parse(list.avgRates!).toStringAsFixed(1),// list.avgRates.toString(),
+                                double.parse(list.avgRates!).toStringAsFixed(1),
+                                
                               style: TextStyle(
                                 fontFamily: 'Cairo',
                                 fontSize: 10.sp,
@@ -438,6 +393,7 @@ class _FavoritsState extends State<Favorits> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          
                           InkWell(
                             onTap: () async {
                               var findprov = Provider.of<FindoutProvider>(
@@ -448,14 +404,12 @@ class _FavoritsState extends State<Favorits> {
                                   .addfav(findprov.token, place_id, 1,
                                   context)
                                   .then((v) {
-                                // setState(() {
-                                //   finshloading = false;
-                                //
-                                // });
+                              
+                              
                               }).whenComplete(() {
-                                // Navigator.pop(this.context);
+
                               }).catchError((e) {
-                                //  showSnackMsg(e.toString());
+
                                 print('ErrorRegCompany:$e');
                               }).then((v) {});
                             },

@@ -6,10 +6,8 @@ import 'package:findout/ModelAppTheme/GF.dart';
 import 'package:findout/PageView/PageView2.dart';
 import 'package:findout/PageView/StartApp.dart';
 import 'package:findout/internet.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:simple_connection_checker/simple_connection_checker.dart';
@@ -52,13 +50,7 @@ class _PageView1State extends State<PageView1> {
             await SimpleConnectionChecker.isConnectedToInternet();
         print(_isConnected);
         if (_isConnected) {
-          // Navigator.pushReplacement(
-          //   context,
-          //   PageTransition(
-          //     type: PageTransitionType.leftToRight,
-          //     child: internet(),
-          //   ),
-          // );
+         
         } else {
           GF().ToastMessage(
               context, _message, const Icon(Icons.wifi_off_rounded));

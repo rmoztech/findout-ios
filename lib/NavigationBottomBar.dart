@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:findout/Home.dart';
 import 'package:findout/ModelAppTheme/Colors.dart';
 import 'package:findout/More.dart';
-import 'package:findout/internet.dart';
 import 'package:findout/notification_helper.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
@@ -29,7 +28,6 @@ class _NavigationBottomBarUserState extends State<NavigationBottomBarUser> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     var androidInitialize = const AndroidInitializationSettings('@drawable/ic_launcher');
@@ -40,9 +38,7 @@ class _NavigationBottomBarUserState extends State<NavigationBottomBarUser> {
 
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      // if(Get.find<OrderController>().runningOrders != null) {
-      //   _orderCount = Get.find<OrderController>().runningOrders.length;
-      // }
+    
       if (kDebugMode) {
         print("onMessage: ${message.data}");
         print("onMessage####: ${message.data['value_check']}");
@@ -54,36 +50,17 @@ class _NavigationBottomBarUserState extends State<NavigationBottomBarUser> {
         _showNotificationCustomSound(_body, _title);
 
       }
-      // String _type = message.notification.bodyLocKey;
-      // String _body = message.notification.body;
-      // Get.find<OrderController>().getPaginatedOrders(1, true);
-      // Get.find<OrderController>().getCurrentOrders();
-      // if(_type == 'new_order' || _body == 'New order placed') {
-      //   // _orderCount = _orderCount + 1;
-      //   Get.dialog(NewRequestDialog());
-      // }else {
-      // }
+    
       NotificationHelper.showNotification(
           message, flutterLocalNotificationsPlugin, false);
     });
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      // if(Get.find<OrderController>().runningOrders != null) {
-      //   _orderCount = Get.find<OrderController>().runningOrders.length;
-      // }
+     
       if (kDebugMode) {
         print("onMessageOpenedApp: ${message.data}");
 
       }
 
-      // String _type = message.notification.bodyLocKey;
-      // String _body = message.notification.body;
-      // Get.find<OrderController>().getPaginatedOrders(1, true);
-      // Get.find<OrderController>().getCurrentOrders();
-      // if(_type == 'new_order' || _body == 'New order placed') {
-      //   // _orderCount = _orderCount + 1;
-      //   Get.dialog(NewRequestDialog());
-      // }else {
-      // }
       NotificationHelper.showNotification(
           message, flutterLocalNotificationsPlugin, false);
     });
@@ -118,7 +95,6 @@ class _NavigationBottomBarUserState extends State<NavigationBottomBarUser> {
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _pageController.dispose();
   }
@@ -138,9 +114,7 @@ class _NavigationBottomBarUserState extends State<NavigationBottomBarUser> {
         ),
 
         icon: const Icon(Icons.home),
-        // const ImageIcon(
-        //   AssetImage("assets/images/more.png"),
-        // ),
+      
         title: ('home'.tr()),
         activeColorPrimary: AppColors.orangeColor,
         inactiveColorPrimary: AppColors.blackColor,),
@@ -151,9 +125,7 @@ class _NavigationBottomBarUserState extends State<NavigationBottomBarUser> {
             fontWeight: FontWeight.bold
         ),
         icon: const Icon(Icons.more_horiz_sharp),
-        // const ImageIcon(
-        //   AssetImage("assets/images/fav.png"),
-        // ),
+       
         title: ('more'.tr()),
         activeColorPrimary: AppColors.orangeColor,
         inactiveColorPrimary: AppColors.blackColor,),
@@ -188,27 +160,27 @@ class _NavigationBottomBarUserState extends State<NavigationBottomBarUser> {
           screens: _buildScreens(),
           items: _navBarsItems(),
           confineInSafeArea: true,
-          backgroundColor: AppColors.whiteColor, // Default is Colors.white.
-          handleAndroidBackButtonPress: true, // Default is true.
-          resizeToAvoidBottomInset: true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
-          stateManagement: true, // Default is true.
-          hideNavigationBarWhenKeyboardShows: true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
+          backgroundColor: AppColors.whiteColor, 
+          handleAndroidBackButtonPress: true,
+          resizeToAvoidBottomInset: true,
+          stateManagement: true, 
+          hideNavigationBarWhenKeyboardShows: true, 
           decoration: NavBarDecoration(
             borderRadius: BorderRadius.circular(10.0),
             colorBehindNavBar: AppColors.whiteColor,
           ),
           popAllScreensOnTapOfSelectedTab: true,
           popActionScreens: PopActionScreensType.all,
-          itemAnimationProperties: const ItemAnimationProperties( // Navigation Bar's items animation properties.
+          itemAnimationProperties: const ItemAnimationProperties( 
             duration: Duration(milliseconds: 200),
             curve: Curves.ease,
           ),
-          screenTransitionAnimation: const ScreenTransitionAnimation( // Screen transition animation on change of selected tab.
+          screenTransitionAnimation: const ScreenTransitionAnimation(
             animateTabTransition: true,
             curve: Curves.ease,
             duration: Duration(milliseconds: 200),
           ),
-          navBarStyle: NavBarStyle.style6, // Choose the nav bar style with this property.
+          navBarStyle: NavBarStyle.style6, 
         )
 
 

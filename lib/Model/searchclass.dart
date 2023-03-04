@@ -14,53 +14,86 @@ class SearchClass {
   String? city;
   String? timeIn;
   String? timeOut;
+  String? timeInAmPm;
+  String? timeOutAmPm;
   String? phone;
   String? facebook;
   String? twitter;
   String? instagram;
   bool? eventNow;
-  List<Images>? images=[];
-  List<String>? imagestring=[];
+  List<Images>? images = [];
+  List<String>? imagestring = [];
   String? avgRates;
-  List<Rates>? rates=[];
-  List<StoryItem>? storyItems=[];
+  List<Rates>? rates = [];
+  List<StoryItem>? storyItems = [];
   String? about_place;
   final StoryController storyController = StoryController();
   int? is_special;
+  String time(String time) {
+    String timeRe = "";
+    var temp = int.parse(time.split(':')[0]);
+    if (temp > 12) {
+      temp = temp - 12;
+      if (temp < 10) {
+        timeRe = time.replaceRange(0, 2, "0$temp").substring(0, 5);
+      } else {
+        timeRe = time.replaceRange(0, 2, "$temp").substring(0, 5);
+      }
+    } else if (temp == 00) {
+      timeRe = time.replaceRange(0, 2, '12').substring(0, 5);
+    } else {
+      timeRe = time.substring(0, 5);
+    }
+    return timeRe;
+  }
 
+  String timeAmPm(String time) {
+    String timeRe = "";
+    var temp = int.parse(time.split(':')[0]);
+    if (temp >= 12) {
+      timeRe = "pm";
+    } else if (temp == 00) {
+      timeRe = "am";
+    } else {
+      timeRe = "am";
+    }
+    return timeRe;
+  }
 
-  SearchClass(
-      {this.id,
-        this.title,
-        this.details,
-        this.counter,
-        this.favorite,
-        this.location,
-        this.mainCategory,
-        this.subCategory,
-        this.area,
-        this.city,
-        this.timeIn,
-        this.timeOut,
-        this.phone,
-        this.facebook,
-        this.twitter,
-        this.instagram,
-        this.eventNow,
-        this.images,
-        this.imagestring,
-        this.avgRates,
-        this.rates,
-        this.storyItems,
-        this.about_place,
-        this.is_special,
-      });
+  SearchClass({
+    this.id,
+    this.title,
+    this.details,
+    this.counter,
+    this.favorite,
+    this.location,
+    this.mainCategory,
+    this.subCategory,
+    this.area,
+    this.city,
+    this.timeIn,
+    this.timeOut,
+    this.phone,
+    this.facebook,
+    this.twitter,
+    this.instagram,
+    this.eventNow,
+    this.images,
+    this.imagestring,
+    this.avgRates,
+    this.rates,
+    this.storyItems,
+    this.about_place,
+    this.is_special,
+  });
 
   SearchClass.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    timeInAmPm = json['time_in'] == null ? null : timeAmPm(json['time_in']);
+    timeOutAmPm = json['time_out'] == null ? null : timeAmPm(json['time_out']);
+    id = int.parse(json['id'].toString());
     title = json['title'];
     details = json['details'];
-    counter = json['counter'];
+    counter = int.parse(json['counter'].toString());
     favorite = json['favorite'];
     location = json['location'] != null
         ? new Location.fromJson(json['location'])
@@ -69,8 +102,9 @@ class SearchClass {
     subCategory = json['Sub_Category'];
     area = json['Area'];
     city = json['City'];
-    timeIn = json['time_in'];
-    timeOut = json['time_out'];
+    timeIn = json['time_in'] == null ? null : time(json['time_in']);
+    timeOut = json['time_out'] == null ? null : time(json['time_out']);
+
     phone = json['phone'];
     facebook = json['facebook'];
     twitter = json['twitter'];
@@ -86,27 +120,31 @@ class SearchClass {
             url: new Images.fromJson(v).image!,
             caption: json['title'].toString(),
             controller: storyController,
-          ),);
+          ),
+        );
       });
-    }else{
-      images=[];
-      imagestring=[];
-      storyItems=[];
+    } else {
+      images = [];
+      imagestring = [];
+      storyItems = [];
     }
-    json['avg_rates']==null?avgRates ="0":avgRates = json['avg_rates'];
+
+    json['avg_rates'] == null ? avgRates = "0" : avgRates = json['avg_rates'];
     if (json['rates'] != null) {
       rates = <Rates>[];
       json['rates'].forEach((v) {
         rates!.add(new Rates.fromJson(v));
       });
-    }else{
+    } else {
       rates = [];
     }
     about_place = json['about_place'];
-    json['is_special']==null? is_special = 0:is_special = json['is_special'];
+    json['is_special'] == null
+        ? is_special = 0
+        : is_special = json['is_special'];
   }
-
 }
+
 class Rates {
   int? id;
   String? comment;
@@ -115,9 +153,9 @@ class Rates {
   Rates({this.id, this.comment, this.rate});
 
   Rates.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = int.parse(json['id'].toString());
     comment = json['comment'];
-    rate = json['rate'];
+    rate = int.parse(json['rate'].toString());
   }
 
   Map<String, dynamic> toJson() {
@@ -128,6 +166,7 @@ class Rates {
     return data;
   }
 }
+
 class Location {
   String? lat;
   String? long;

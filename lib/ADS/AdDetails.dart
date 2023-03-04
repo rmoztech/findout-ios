@@ -1,43 +1,27 @@
-import 'dart:async';
-import 'dart:math';
-
-import 'package:adobe_xd/pinned.dart';
-import 'package:animation_list/animation_list.dart';
-import 'package:avatar_glow/avatar_glow.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:findout/ADS/AdDetailsToDetails.dart';
+import 'package:findout/ADS/image_swiper.dart';
 import 'package:findout/Model/searchclass.dart';
 import 'package:findout/ModelAppTheme/AppBar.dart';
 import 'package:findout/ModelAppTheme/Colors.dart';
-import 'package:findout/ModelAppTheme/GF.dart';
-import 'package:findout/NavigationBottomBar.dart';
-import 'package:findout/PageView/PageView1.dart';
+
 import 'package:findout/api/webpage.dart';
-import 'package:findout/internet.dart';
 import 'package:findout/provider/findout_provider.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_viewer/image_viewer.dart';
-import 'package:like_button/like_button.dart';
-import 'package:loading_transition_button/loading_transition_button.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:rating_dialog/rating_dialog.dart';
-import 'package:simple_connection_checker/simple_connection_checker.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:photo_view/photo_view.dart';
 
-import '../Model/image_data.dart';
+import '../Events/map.dart';
 
 class AdDetails extends StatefulWidget {
   SearchClass list;
@@ -54,8 +38,9 @@ class _AdDetailsState extends State<AdDetails> {
     // TODO: implement initState
     super.initState();
     var findprov = Provider.of<FindoutProvider>(context, listen: false);
-    if(findprov.token==""){}else{
-      findprov. add_counter(findprov.token,widget.list.id!);
+    if (findprov.token == "") {
+    } else {
+      findprov.add_counter(findprov.token, widget.list.id!);
     }
   }
 
@@ -81,15 +66,15 @@ class _AdDetailsState extends State<AdDetails> {
         ].toSet(),
       ),
     );
-
   }
 
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Column(
+      body: ListView(
         children: [
           SizedBox(
             height: 20.h,
@@ -99,49 +84,17 @@ class _AdDetailsState extends State<AdDetails> {
             height: 10.h,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(),
-              // InkWell(
-              //   onTap: () {
-              //     pushNewScreen(
-              //       context,
-              //       screen: AdDetailsToDetails(widget.list),
-              //       withNavBar: false, // OPTIONAL VALUE. True by default.
-              //       pageTransitionAnimation: PageTransitionAnimation.cupertino,
-              //     );
-              //   },
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(right: 12.0, left: 12.0),
-              //     child: Column(
-              //       children: [
-              //         Image.asset(
-              //           "assets/images/AdDeitels.png",
-              //           width: 30.w,
-              //           height: 30.h,
-              //         ),
-              //         // Text(
-              //         //   'details'.tr(),
-              //         //   style: TextStyle(
-              //         //     fontFamily: 'Cairo',
-              //         //     fontSize: 12.sp,
-              //         //     color: AppColors.orangeColor,
-              //         //   ),
-              //         // )
-              //       ],
-              //     ),
-              //   ),
-              // ),
               InkWell(
                 onTap: () {
                   showDialog(
                     context: context,
                     barrierDismissible: true,
-                    // set to false if you want to force a rating
                     builder: (context) => RatingDialog(
                       initialRating: 1.0,
                       starSize: 25,
-                      // your app's name?
                       title: Text(
                         'rating'.tr(),
                         textAlign: TextAlign.center,
@@ -150,13 +103,11 @@ class _AdDetailsState extends State<AdDetails> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      // encourage your user to leave a high rating?
                       message: Text(
                         'rating2'.tr(),
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 15.sp),
                       ),
-                      // your app's logo?
                       image: widget.list.images!.length == 0
                           ? Container(
                               // width: 50,
@@ -174,7 +125,6 @@ class _AdDetailsState extends State<AdDetails> {
                               ),
                             )
                           : Container(
-                              // width: 50,
                               height: 150,
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(
@@ -218,40 +168,43 @@ class _AdDetailsState extends State<AdDetails> {
           ),
           widget.list.images!.length == 0
               ? Container(
-                  width: 97,
-                  height: 97,
+                  margin: EdgeInsets.all(8),
+                  width: 120,
+                  height: 120,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                        const Radius.elliptical(9999.0, 9999.0)),
+                    borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
-                      image: AssetImage('assets/images/logo_app_bar.png'),
-                      fit: BoxFit.contain,
-                    ),
-                    border:
-                        Border.all(width: 0.5, color: const Color(0xffc8c8c8)),
+                        image: AssetImage('assets/images/logo_app_bar.png'),
+                        fit: BoxFit.contain),
                   ),
                 )
-              : Container(
-                  width: 97,
-                  height: 97,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                        const Radius.elliptical(9999.0, 9999.0)),
-                    image: DecorationImage(
-                      image: NetworkImage(widget.list.images![0].image!),
-                      fit: BoxFit.cover,
+              : Align(
+                  alignment: Alignment.center,
+                  child: Container(
+                    width: 130,
+                    height: 130,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                          const Radius.elliptical(9999.0, 9999.0)),
+                      image: DecorationImage(
+                        image: NetworkImage(widget.list.images![0].image!),
+                        fit: BoxFit.cover,
+                      ),
+                      border: Border.all(
+                          width: 0.5, color: const Color(0xffc8c8c8)),
                     ),
-                    border:
-                        Border.all(width: 0.5, color: const Color(0xffc8c8c8)),
                   ),
                 ),
-          Text(
-            widget.list.title.toString(), //     'فندق هيلتون',
-            style: TextStyle(
-              fontFamily: 'Cairo',
-              fontSize: 16.sp,
-              color: AppColors.blackColor,
-              fontWeight: FontWeight.w700,
+          Align(
+            alignment: Alignment.center,
+            child: Text(
+              widget.list.title.toString(), //     'فندق هيلتون',
+              style: TextStyle(
+                fontFamily: 'Cairo',
+                fontSize: 16.sp,
+                color: AppColors.blackColor,
+                fontWeight: FontWeight.w700,
+              ),
             ),
           ),
           widget.list.details == null
@@ -295,23 +248,6 @@ class _AdDetailsState extends State<AdDetails> {
                     ],
                   )),
                 ),
-
-          // Row(
-          //   children: [
-          //     Text(
-          //       widget.list.details == null ? "" : widget.list.details.toString(),
-          //       //   'لوريم ايبسوم دولار سيت أميت\nكونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور\nأنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا\n يوت انيم أد مينيم فينايم,كيواس نوستريد',
-          //       maxLines: 3,
-          //       overflow: TextOverflow.ellipsis,
-          //       style: TextStyle(
-          //         fontFamily: 'Cairo',
-          //         fontSize: 12.sp,
-          //         color: AppColors.gryColor,
-          //       ),
-          //       textAlign: TextAlign.center,
-          //     ),
-          //   ],
-          // ),
           SizedBox(
             height: 10.h,
           ),
@@ -355,7 +291,19 @@ class _AdDetailsState extends State<AdDetails> {
                       ? Container()
                       : InkWell(
                           onTap: () {
-                            showDialogMap();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MapDetails(
+                                  lat: double.parse(widget.list.location!.lat!),
+                                  long:
+                                      double.parse(widget.list.location!.long!),
+                                  id: '${widget.list.id}',
+                                  title: '${widget.list.title}',
+                                ),
+                              ),
+                            );
+                            // showDialogMap();
                           },
                           child: Container(
                             width: 30,
@@ -412,7 +360,11 @@ class _AdDetailsState extends State<AdDetails> {
                     width: 5.w,
                   ),
                   Text(
-                    widget.list.timeIn == null ? "" : 'AM'.tr(),
+                    widget.list.timeIn == null
+                        ? ""
+                        : widget.list.timeInAmPm == "am"
+                            ? 'AM'.tr()
+                            : 'PM'.tr(),
                     style: TextStyle(
                       fontFamily: 'Cairo',
                       fontSize: 8.sp,
@@ -448,7 +400,11 @@ class _AdDetailsState extends State<AdDetails> {
                     width: 5.w,
                   ),
                   Text(
-                    widget.list.timeOut == null ? "" : 'PM'.tr(),
+                    widget.list.timeOut == null
+                        ? ""
+                        : widget.list.timeOutAmPm == "am"
+                            ? 'AM'.tr()
+                            : 'PM'.tr(),
                     style: TextStyle(
                       fontFamily: 'Cairo',
                       fontSize: 8.sp,
@@ -594,7 +550,13 @@ class _AdDetailsState extends State<AdDetails> {
                     ),
                   ),
                 ),
-          Expanded(child: PinterestGrid(widget.list)),
+          SizedBox(
+            height: 20,
+          ),
+          PinterestGrid(widget.list),
+          SizedBox(
+            height: 20,
+          ),
         ],
       ),
     );
@@ -663,9 +625,10 @@ class PinterestGrid extends StatelessWidget {
     return StaggeredGridView.countBuilder(
       crossAxisCount: 2,
       itemCount: list.imagestring!.length + 1,
-      reverse: true,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        return index == list.imagestring!.length
+        return index == 0
             ? InkWell(
                 onTap: () {
                   pushNewScreen(
@@ -681,83 +644,91 @@ class PinterestGrid extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.0),
                     child: Container(
                       child: Center(
-                        child:Column(
-                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SvgPicture.string(
-                              '<svg viewBox="0.0 0.0 41.9 41.9" ><path  d="M 41.17804336547852 0 L 0.6979329586029053 0 C 0.3126739859580994 0 0 0.3119760155677795 0 0.6979329586029053 L 0 41.17804336547852 C 0 41.56400299072266 0.3126739859580994 41.8759765625 0.6979329586029053 41.8759765625 L 41.17804336547852 41.8759765625 C 41.56330108642578 41.8759765625 41.8759765625 41.56400299072266 41.8759765625 41.17804336547852 L 41.8759765625 0.6979329586029053 C 41.8759765625 0.3119760155677795 41.56330108642578 0 41.17804336547852 0 Z M 13.04157543182373 35.47453689575195 L 10.42013931274414 34.09611892700195 L 7.798702716827393 35.47453689575195 L 8.299120903015137 32.55508422851562 L 6.178102016448975 30.48710632324219 L 9.109420776367188 30.06136703491211 L 10.42013835906982 27.4050350189209 L 11.73085594177246 30.06136703491211 L 14.66217517852783 30.48710632324219 L 12.54115676879883 32.55508422851562 L 13.04157543182373 35.47453689575195 Z M 12.54045963287354 21.77690315246582 L 13.04087829589844 24.69635581970215 L 10.41944217681885 23.31793975830078 L 7.798005104064941 24.69635581970215 L 8.298422813415527 21.77690315246582 L 6.177404403686523 19.70892715454102 L 9.108722686767578 19.28318786621094 L 10.41944122314453 16.62685585021973 L 11.73015880584717 19.28318786621094 L 14.66147804260254 19.70892715454102 L 12.54045963287354 21.77690315246582 Z M 12.54045963287354 11.24998092651367 L 13.04087829589844 14.16943454742432 L 10.41944217681885 12.79101753234863 L 7.798005104064941 14.16943454742432 L 8.298422813415527 11.24998092651367 L 6.177404403686523 9.182005882263184 L 9.108722686767578 8.756266593933105 L 10.41944122314453 6.099934101104736 L 11.73015880584717 8.756266593933105 L 14.66147804260254 9.182005882263184 L 12.54045963287354 11.24998092651367 Z M 32.80284881591797 33.50078201293945 L 16.05245780944824 33.50078201293945 L 16.05245780944824 30.70904922485352 L 32.80284881591797 30.70904922485352 L 32.80284881591797 33.50078201293945 Z M 32.80284881591797 23.03178787231445 L 16.05245780944824 23.03178787231445 L 16.05245780944824 20.24005508422852 L 32.80284881591797 20.24005508422852 L 32.80284881591797 23.03178787231445 Z M 32.80284881591797 12.56279373168945 L 16.05245780944824 12.56279373168945 L 16.05245780944824 9.771060943603516 L 32.80284881591797 9.771060943603516 L 32.80284881591797 12.56279373168945 Z" fill="#ffffff" stroke="none" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                              allowDrawingOutsideViewBox: true,
-                              fit: BoxFit.fill,
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.string(
+                            '<svg viewBox="0.0 0.0 41.9 41.9" ><path  d="M 41.17804336547852 0 L 0.6979329586029053 0 C 0.3126739859580994 0 0 0.3119760155677795 0 0.6979329586029053 L 0 41.17804336547852 C 0 41.56400299072266 0.3126739859580994 41.8759765625 0.6979329586029053 41.8759765625 L 41.17804336547852 41.8759765625 C 41.56330108642578 41.8759765625 41.8759765625 41.56400299072266 41.8759765625 41.17804336547852 L 41.8759765625 0.6979329586029053 C 41.8759765625 0.3119760155677795 41.56330108642578 0 41.17804336547852 0 Z M 13.04157543182373 35.47453689575195 L 10.42013931274414 34.09611892700195 L 7.798702716827393 35.47453689575195 L 8.299120903015137 32.55508422851562 L 6.178102016448975 30.48710632324219 L 9.109420776367188 30.06136703491211 L 10.42013835906982 27.4050350189209 L 11.73085594177246 30.06136703491211 L 14.66217517852783 30.48710632324219 L 12.54115676879883 32.55508422851562 L 13.04157543182373 35.47453689575195 Z M 12.54045963287354 21.77690315246582 L 13.04087829589844 24.69635581970215 L 10.41944217681885 23.31793975830078 L 7.798005104064941 24.69635581970215 L 8.298422813415527 21.77690315246582 L 6.177404403686523 19.70892715454102 L 9.108722686767578 19.28318786621094 L 10.41944122314453 16.62685585021973 L 11.73015880584717 19.28318786621094 L 14.66147804260254 19.70892715454102 L 12.54045963287354 21.77690315246582 Z M 12.54045963287354 11.24998092651367 L 13.04087829589844 14.16943454742432 L 10.41944217681885 12.79101753234863 L 7.798005104064941 14.16943454742432 L 8.298422813415527 11.24998092651367 L 6.177404403686523 9.182005882263184 L 9.108722686767578 8.756266593933105 L 10.41944122314453 6.099934101104736 L 11.73015880584717 8.756266593933105 L 14.66147804260254 9.182005882263184 L 12.54045963287354 11.24998092651367 Z M 32.80284881591797 33.50078201293945 L 16.05245780944824 33.50078201293945 L 16.05245780944824 30.70904922485352 L 32.80284881591797 30.70904922485352 L 32.80284881591797 33.50078201293945 Z M 32.80284881591797 23.03178787231445 L 16.05245780944824 23.03178787231445 L 16.05245780944824 20.24005508422852 L 32.80284881591797 20.24005508422852 L 32.80284881591797 23.03178787231445 Z M 32.80284881591797 12.56279373168945 L 16.05245780944824 12.56279373168945 L 16.05245780944824 9.771060943603516 L 32.80284881591797 9.771060943603516 L 32.80284881591797 12.56279373168945 Z" fill="#ffffff" stroke="none" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
+                            allowDrawingOutsideViewBox: true,
+                            fit: BoxFit.fill,
+                          ),
+                          Text(
+                            'detals'.tr(),
+                            style: const TextStyle(
+                              fontFamily: 'Cairo',
+                              fontSize: 12,
+                              color: Color(0xffffffff),
                             ),
-                            Text(
-                              'detals'.tr(),
-                              style: const TextStyle(
-                                fontFamily: 'Cairo',
-                                fontSize: 12,
-                                color: Color(0xffffffff),
-                              ),
-                              textAlign: TextAlign.left,
-                            )
-
-                          ],
-                        )
-
-                        // Text(
-                        //   list.details == null ? "" : list.details.toString(),
-                        //   //   'لوريم ايبسوم دولار سيت أميت\nكونسيكتيتور أدايبا يسكينج أليايت,سيت دو أيوسمود تيمبور\nأنكايديديونتيوت لابوري ات دولار ماجنا أليكيوا\n يوت انيم أد مينيم فينايم,كيواس نوستريد',
-                        //   maxLines: 3,
-                        //   overflow: TextOverflow.ellipsis,
-                        //   style: TextStyle(
-                        //     fontFamily: 'Cairo',
-                        //     fontSize: 12.sp,
-                        //     color: AppColors.whiteColor,
-                        //   ),
-                        //   textAlign: TextAlign.center,
-                        // ),
-                      ),
+                            textAlign: TextAlign.left,
+                          )
+                        ],
+                      )),
                       color: AppColors.orangeColor,
                       height: 128,
                     ),
                   ),
                 ),
               )
-            : InkWell(
-                onTap: () {
-                  ImageViewer.showImageSlider(
-                    images: list.imagestring!,
-                    // [
-                    //   'https://cdn.eso.org/images/thumb300y/eso1907a.jpg',
-                    //   'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg',
-                    //   'https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-                    // ],
-                    startingPosition: index,
+            : index == list.imagestring!.length
+                ? InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyHomeSwiper(
+                            curIndex: 0,
+                            images: list.imagestring!,
+                          ),
+                        ),
+                      );
+                      // ImageViewer.showImageSlider(
+                      //   images: list.imagestring!,
+                      //   startingPosition: 0,
+                      // );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.0),
+                      child: Image.network(
+                        list.imagestring![0],
+                        fit: BoxFit.cover,
+                        height: 180,
+                      ),
+                    ),
+                  )
+                : InkWell(
+                    onTap: () {
+                      // print('*************');
+                      // print(list.imagestring!.length);
+                      // print(list.imagestring![0]);
+                      // print(index);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyHomeSwiper(
+                            images: list.imagestring!,
+                            curIndex: index,
+                          ),
+                        ),
+                      );
+                      //           ImageViewer.showImageSlider(
+                      //             images: list.imagestring!,
+                      //             startingPosition: index,
+                      //           );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16.0),
+                      child: Image.network(
+                        list.imagestring![index],
+                        height: 180,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   );
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16.0),
-                  child: Image.network(list.imagestring![index],
-                      fit: BoxFit.cover),
-                ),
-              );
       },
       staggeredTileBuilder: (index) => const StaggeredTile.fit(1),
       mainAxisSpacing: 8.0,
       crossAxisSpacing: 8.0,
-    );
-  }
-}
-
-class ImageCard extends StatelessWidget {
-  const ImageCard({required this.imageData});
-
-  final ImageData imageData;
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16.0),
-      child: Image.network(imageData.imageUrl, fit: BoxFit.cover),
     );
   }
 }

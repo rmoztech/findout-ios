@@ -27,7 +27,6 @@ class NotificationHelper {
       if (data) {
         _title = message.data['title'];
         _body = message.data['body'];
-        // _orderID = message.data['order_id'];
         _image =
             (message.data['image'] != null && message.data['image'].isNotEmpty)
                 ? message.data['image'].startsWith('http')
@@ -37,7 +36,6 @@ class NotificationHelper {
       } else {
         _title = message.notification!.title;
         _body = message.notification!.body;
-        // _orderID = message.notification.titleLocKey;
         if (Platform.isAndroid) {
           _image = (message.notification!.android!.imageUrl != null &&
                   message.notification!.android!.imageUrl!.isNotEmpty)
@@ -78,7 +76,7 @@ class NotificationHelper {
       playSound: true,
       importance: Importance.max,
       priority: Priority.max,
-      sound: RawResourceAndroidNotificationSound('notification'), //notification
+      sound: RawResourceAndroidNotificationSound('notification'), 
     );
     const NotificationDetails platformChannelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
@@ -154,8 +152,7 @@ class NotificationHelper {
 }
 
 Future<dynamic> myBackgroundMessageHandler(RemoteMessage message) async {
-  print(
-      "onBackground: ${message.notification!.title}/${message.notification!.body}/${message.notification!.titleLocKey}");
+
   var androidInitialize =
       new AndroidInitializationSettings('notification_icon');
   var iOSInitialize = new IOSInitializationSettings();

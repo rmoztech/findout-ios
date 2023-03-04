@@ -3,10 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:getwidget/colors/gf_color.dart';
-import 'package:getwidget/components/loader/gf_loader.dart';
 import 'package:getwidget/components/toast/gf_toast.dart';
 import 'package:getwidget/position/gf_toast_position.dart';
-import 'package:getwidget/types/gf_loader_type.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
 
 class GF {

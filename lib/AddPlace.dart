@@ -1,38 +1,23 @@
 import 'dart:async';
-import 'dart:math';
 
-import 'package:adobe_xd/pinned.dart';
-import 'package:animation_list/animation_list.dart';
-import 'package:avatar_glow/avatar_glow.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:findout/ADS/AdDetails.dart';
 import 'package:findout/Model/homeclass.dart';
 import 'package:findout/ModelAppTheme/AppBar.dart';
 import 'package:findout/ModelAppTheme/Colors.dart';
 import 'package:findout/ModelAppTheme/GF.dart';
-import 'package:findout/ModelAppTheme/Sound.dart';
-import 'package:findout/NavigationBottomBar.dart';
-import 'package:findout/PageView/PageView1.dart';
+
 import 'package:findout/cur_loc.dart';
-import 'package:findout/internet.dart';
 import 'package:findout/provider/findout_provider.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:like_button/like_button.dart';
-import 'package:loading_transition_button/loading_transition_button.dart';
+
 import 'package:localize_and_translate/localize_and_translate.dart';
 import 'package:multi_image_picker2/multi_image_picker2.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:simple_connection_checker/simple_connection_checker.dart';
+
 
 class AddPlace extends StatefulWidget {
   @override
@@ -48,7 +33,8 @@ class _AddPlaceState extends State<AddPlace> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
+
     super.initState();
 
 
@@ -72,7 +58,8 @@ class _AddPlaceState extends State<AddPlace> {
   Cities? selectedValue2;
   String _error = 'No Error Dectected';
   int picno = 0;
-  // XFile? videoFile;
+
+
   List<Asset> images = <Asset>[];
   Widget buildGridView() {
     return GridView.count(
@@ -132,7 +119,6 @@ class _AddPlaceState extends State<AddPlace> {
           padding: const EdgeInsets.only(right: 15.0,left: 15),
           child: Column(
             children: [
-              ////
               SizedBox(
                 height: 10.h,
               ),
@@ -498,9 +484,8 @@ class _AddPlaceState extends State<AddPlace> {
                   ],
                 ),
               ),
-              // SizedBox(
-              //   height: 10.h,
-              // ),
+             
+             
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -511,8 +496,7 @@ class _AddPlaceState extends State<AddPlace> {
                       width: width/2.2,
                       child: DropdownButtonFormField2(
                         decoration: InputDecoration(
-                          //Add isDense true and zero Padding.
-                          //Add Horizontal padding using buttonPadding and Vertical padding by increasing buttonHeight instead of add Padding here so that The whole TextField Button become clickable, and also the dropdown menu open under The whole TextField Button.
+                         
                           isDense: true,
                           contentPadding: EdgeInsets.zero,
                           border: OutlineInputBorder(
@@ -520,8 +504,7 @@ class _AddPlaceState extends State<AddPlace> {
 
                           ),
 
-                          //Add more decoration as you want here
-                          //Add label If you want but add hint outside the decoration to be aligned in the button perfectly.
+
                         ),
                         isExpanded: true,
                         hint: Center(
@@ -565,7 +548,6 @@ class _AddPlaceState extends State<AddPlace> {
                             CityItems.clear();
                             CityItems.addAll(selectedValue!.cities!);
                             selectedValue2=selectedValue!.cities![0];
-                            print(selectedValue2!.title.toString());
 
 
                           });
@@ -576,16 +558,13 @@ class _AddPlaceState extends State<AddPlace> {
 
                           });
 
-                          //Do something when changing the item if you want.
                         },
                         onSaved: (value) {
-                          // selectedValue = value.toString();
                         },
                       ),
                     ),
                   ),
                   Container(
-                    // margin: const EdgeInsets.all(15.0),
                     padding: const EdgeInsets.all(5.0),
                     decoration: BoxDecoration(
                       border: Border.all(color:Colors.black45,),
@@ -627,7 +606,6 @@ class _AddPlaceState extends State<AddPlace> {
                         color: Colors.deepPurpleAccent,
                       ),
                       onChanged: (v) {
-                        print("nnnn"+v.toString());
                         setState(() {
                           selectedValue2 = v;
                         });
@@ -636,64 +614,7 @@ class _AddPlaceState extends State<AddPlace> {
                   ),
                 ],
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Container(
-              //       width: width/2.w,
-              //       height: 40.h,
-              //       decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(6.0),
-              //         color: const Color(0xffffffff),
-              //         border: Border.all(width: 1.0, color: const Color(0xffe8e8e8)),
-              //       ),
-              //       child: TextFormField(
-              //         autovalidateMode: AutovalidateMode.always,
-              //         controller: ControllertxtArea,
-              //         keyboardType: TextInputType.text,
-              //         decoration:  InputDecoration(
-              //           hintText: 'chose'.tr(),
-              //           border: InputBorder.none,
-              //           labelStyle: const TextStyle(
-              //             fontSize: 8.932700157165527,
-              //           ),
-              //           hintStyle: const TextStyle(
-              //             fontFamily: 'Cairo',
-              //             fontSize: 10,
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //     Container(
-              //       width: width/2.w,
-              //       height: 40.h,
-              //       decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(6.0),
-              //         color: const Color(0xffffffff),
-              //         border: Border.all(width: 1.0, color: const Color(0xffe8e8e8)),
-              //       ),
-              //       child: TextFormField(
-              //         autovalidateMode: AutovalidateMode.always,
-              //         controller: ControllertxtCity,
-              //         keyboardType: TextInputType.text,
-              //         decoration:  InputDecoration(
-              //           hintText: 'chose2'.tr(),
-              //           border: InputBorder.none,
-              //           labelStyle: const TextStyle(
-              //             fontSize: 8.932700157165527,
-              //           ),
-              //           hintStyle: const TextStyle(
-              //             fontFamily: 'Cairo',
-              //             fontSize: 10,
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
-              // SizedBox(
-              //   height: 10.h,
-              // ),
+             
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
@@ -710,10 +631,7 @@ class _AddPlaceState extends State<AddPlace> {
                       fromPlaceLng = fromPlace.longitude.toString();
                       fPlaceName = sendData["loc_name"];
                       address=fPlaceName;
-                      // _addressController = TextEditingController(text:fPlaceName);
-                      // _addressController.text=fPlaceName;
-                      print("\n\n\n\n\n\n\nfromPlaceLng>>>>"+
-                          fromPlaceLng+fPlaceName+"\n\n\n\n\n\n");
+                
                     });
 
                   },
@@ -734,7 +652,7 @@ class _AddPlaceState extends State<AddPlace> {
                             child: Container(
                               width: 200,
                               child: Text(
-                                address,//  'currentLocation'.tr(),
+                                address,
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 1,
                                 style: TextStyle(
@@ -760,61 +678,6 @@ class _AddPlaceState extends State<AddPlace> {
                 ),
               ),
 
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //   children: [
-              //     Container(
-              //       width: width/2.w,
-              //       height: 40.h,
-              //       decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(6.0),
-              //         color: const Color(0xffffffff),
-              //         border: Border.all(width: 1.0, color: const Color(0xffe8e8e8)),
-              //       ),
-              //       child: TextFormField(
-              //         autovalidateMode: AutovalidateMode.always,
-              //         controller: ControllertxtLat,
-              //         keyboardType: TextInputType.number,
-              //         decoration:  InputDecoration(
-              //           hintText: 'lat'.tr(),
-              //           border: InputBorder.none,
-              //           labelStyle: const TextStyle(
-              //             fontSize: 8.932700157165527,
-              //           ),
-              //           hintStyle: const TextStyle(
-              //             fontFamily: 'Cairo',
-              //             fontSize: 10,
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //     Container(
-              //       width: width/2.w,
-              //       height: 40.h,
-              //       decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(6.0),
-              //         color: const Color(0xffffffff),
-              //         border: Border.all(width: 1.0, color: const Color(0xffe8e8e8)),
-              //       ),
-              //       child: TextFormField(
-              //         autovalidateMode: AutovalidateMode.always,
-              //         controller: ControllertxtLong,
-              //         keyboardType: TextInputType.number,
-              //         decoration:  InputDecoration(
-              //           hintText: 'long'.tr(),
-              //           border: InputBorder.none,
-              //           labelStyle: const TextStyle(
-              //             fontSize: 8.932700157165527,
-              //           ),
-              //           hintStyle: const TextStyle(
-              //             fontFamily: 'Cairo',
-              //             fontSize: 10,
-              //           ),
-              //         ),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               SizedBox(
                 height: 30.h,
               ),
@@ -854,7 +717,6 @@ class _AddPlaceState extends State<AddPlace> {
                       controller: ControllertxtAM,
                       keyboardType: TextInputType.datetime,
                       decoration:  const InputDecoration(
-                        // hintText: 'AM'.tr(),
                         border: InputBorder.none,
                         labelStyle: TextStyle(
                           fontSize: 8.932700157165527,
@@ -879,7 +741,7 @@ class _AddPlaceState extends State<AddPlace> {
                       controller: ControllertxtPM,
                       keyboardType: TextInputType.datetime,
                       decoration:  const InputDecoration(
-                        // hintText: 'PM'.tr(),
+
                         border: InputBorder.none,
                         labelStyle: TextStyle(
                           fontSize: 8.932700157165527,

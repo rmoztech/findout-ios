@@ -1,34 +1,21 @@
-import 'dart:async';
-import 'dart:math';
 
-import 'package:adobe_xd/pinned.dart';
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:findout/ADS/Ads.dart';
+
 import 'package:findout/AddPlace.dart';
 import 'package:findout/Events/Events.dart';
 import 'package:findout/Favorits.dart';
 import 'package:findout/ModelAppTheme/AppBar.dart';
 import 'package:findout/ModelAppTheme/Colors.dart';
-import 'package:findout/ModelAppTheme/GF.dart';
-import 'package:findout/NavigationBottomBar.dart';
-import 'package:findout/PageView/PageView1.dart';
+
 import 'package:findout/api/webpage.dart';
-import 'package:findout/internet.dart';
 import 'package:findout/provider/findout_provider.dart';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_carousel_slider/flutter_custom_carousel_slider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:loading_transition_button/loading_transition_button.dart';
 import 'package:localize_and_translate/localize_and_translate.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:simple_connection_checker/simple_connection_checker.dart';
 
 class More extends StatefulWidget {
   @override
@@ -38,7 +25,6 @@ class More extends StatefulWidget {
 class _MoreState extends State<More> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -64,7 +50,7 @@ class _MoreState extends State<More> {
                 pushNewScreen(
                   context,
                   screen:  Events(),
-                  withNavBar: false, // OPTIONAL VALUE. True by default.
+                  withNavBar: false,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino,
                 );
               },
@@ -139,7 +125,7 @@ class _MoreState extends State<More> {
                 pushNewScreen(
                   context,
                   screen:  Favorits(),
-                  withNavBar: false, // OPTIONAL VALUE. True by default.
+                  withNavBar: false, 
                   pageTransitionAnimation: PageTransitionAnimation.cupertino,
                 );
               },
@@ -338,7 +324,7 @@ class _MoreState extends State<More> {
                 pushNewScreen(
                   context,
                   screen:  AddPlace(),
-                  withNavBar: false, // OPTIONAL VALUE. True by default.
+                  withNavBar: false,
                   pageTransitionAnimation: PageTransitionAnimation.cupertino,
                 );
               },
@@ -533,9 +519,7 @@ class _MoreState extends State<More> {
               allowDrawingOutsideViewBox: true,
               fit: BoxFit.fill,
             ),
-            // SizedBox(
-            //   height: 20.h,
-            // ),
+         
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

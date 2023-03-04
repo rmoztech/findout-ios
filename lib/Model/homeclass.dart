@@ -48,15 +48,22 @@ class Ads1 {
   String? link;
   String? image;
   int? service_id;
-  Ads1({this.id, this.title, this.details, this.link, this.image, this.service_id});
+  Ads1(
+      {this.id,
+      this.title,
+      this.details,
+      this.link,
+      this.image,
+      this.service_id});
 
   Ads1.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id =int.parse(json['id'].toString()) ;
     title = json['title'];
     details = json['details'];
     link = json['link'];
     image = json['image'];
-    service_id = json['service_id'];
+    service_id =int.parse( json['service_id'].toString());
+    // service_id = int.parse(json['service_id']) ;
   }
 
   Map<String, dynamic> toJson() {

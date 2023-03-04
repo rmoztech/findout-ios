@@ -64,5 +64,7 @@
     "whatThisPlace": "What about the place",
     "currentLocation": "current location",
     "NoData": "No Data ... Please, Wait",
-    "detals": "Booking details and inquiries"
+    "detals": "Booking details and inquiries",
+    "all":"all"
+
 }
